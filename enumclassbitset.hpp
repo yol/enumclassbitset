@@ -65,9 +65,11 @@ namespace Util {
      *     RELATED
      * };
      *
-     * template<>
-     * struct EnumTraits<ConntrackState> {
-     *     static constexpr ConntrackState max = ConntrackState::RELATED
+     * namespace Util {
+     *     template<>
+     *     struct EnumTraits<ConntrackState> {
+     *         static constexpr ConntrackState max = ConntrackState::RELATED;
+     *     };
      * }
      *
      * typedef EnumClassBitset<ConntrackState> ConntrackStateSet;
@@ -76,7 +78,8 @@ namespace Util {
      *     ConntrackStateSet states;
      *     states.set(ConntrackState::NEW);
      *     states.set(ConntrackState::ESTABLISHED);
-     *     bool result = states.test(ConntrackState::NEW); // true
+     *     bool result = states.test(ConntrackState::NEW);
+     *     std::cout << result << std::endl;    // 1
      *     for (auto state : states) {
      *         switch (state) {
      *             case ConntrackState::NEW:
@@ -103,6 +106,7 @@ namespace Util {
         typedef std::bitset<static_cast<std::size_t>(EnumTraits<T>::max)> ImplType;
 
     private:
+        /// Implementation of the bitset
         ImplType mBitset;
 
         /**
