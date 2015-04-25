@@ -21,6 +21,7 @@ void example() {
     states.set(ConntrackState::NEW);
     states.set(ConntrackState::ESTABLISHED);
     bool result = states.test(ConntrackState::NEW);
+    // states.set(2);   -- does not compile
     std::cout << result << std::endl;    // 1
     for (auto state : states) {
         switch (state) {
