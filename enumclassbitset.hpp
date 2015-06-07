@@ -46,7 +46,9 @@ namespace Util {
      * std::bitset for enum class types
      *
      * Provides a type-safe interface to std::bitset when used with enum class types.
-     * \ref EnumTraits must be specialized for the enum type.
+     * \ref EnumTraits must be specialized for the enum type. The enumeration members
+     * should start at value 0 and all values should be continuous. Otherwise some space
+     * will be wasted in the bitset.
      * This also provides an iterator interface for easy enumeration of all members
      * in the set with range-based for loops.
      *
@@ -103,7 +105,7 @@ namespace Util {
     {
     public:
         /// Type of the bitset implementation
-        typedef std::bitset<static_cast<std::size_t>(EnumTraits<T>::max)> ImplType;
+        typedef std::bitset<static_cast<std::size_t>(EnumTraits<T>::max) + 1> ImplType;
 
     private:
         /// Implementation of the bitset
@@ -464,7 +466,7 @@ namespace Util {
          */
         iterator end() const
         {
-            return iterator(*this, static_cast<std::size_t>(EnumTraits<T>::max));
+            return iterator(*this, static_cast<std::size_t>(EnumTraits<T>::max) + 1);
         }
 
         /**
